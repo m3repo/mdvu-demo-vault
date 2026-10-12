@@ -1,0 +1,86 @@
+# Einstellungen fuer "Tools -> Convert HTML file to Markdown" in mdVue.
+# Gilt fuer HTML-Dateien in diesem Ordner; hier: die drei WHATWG-Standards
+# (HTML, DOM, Infra).
+
+# Element.klasse -> Callout-Typ. Die Spezifikation kennzeichnet Hinweise,
+# Warnungen, offene Punkte und Beispiele ueber Klassen.
+callouts:
+  p.note: note
+  div.note: note
+  p.warning: warning
+  div.warning: warning
+  p.XXX: warning          # "open issue"
+  div.XXX: warning
+  p.critical: danger
+  div.critical: danger
+  p.example: example
+  div.example: example
+
+# Klasse an <pre>/<code> -> Sprache des Codeblocks.
+languages:
+  html: html
+  css: css
+  js: javascript
+  json: json
+  idl: webidl
+  abnf: abnf
+
+# Elemente, die ganz entfallen sollen. Auskommentiert: die rund 1000
+# MDN-Kaesten mit Browser-Unterstuetzung ("Support in all current engines ...").
+skip:
+  - div.mdn-anno
+  - details.mdn-anno      # DOM-Seite: dort sind die Kaesten <details>
+  - a.logo                # WHATWG-Logo: CC BY deckt keine Markenrechte ab
+
+# Verweise auf andere, ebenfalls hier abgelegte Seiten: Links dorthin zeigen
+# nach der Wandlung auf die Markdown-Fassung (gleicher Name mit .md) samt
+# Abschnitt. Alle drei Seiten mit dieser Datei wandeln; Reihenfolge egal.
+links:
+  - url: https://html.spec.whatwg.org/
+    file: html-spec-whatwg-org.html
+    vars:
+      snapshot: 877d6146487f15b15bc8dd0e3c625063a37b456a
+      fetched: "2026-10-10"
+  - url: https://dom.spec.whatwg.org/
+    file: dom-spec-whatwg-org.html
+    vars:
+      snapshot: 3071e5f269448350fdea79bb284eedaf17bc431e
+      fetched: "2026-10-10"
+  - url: https://infra.spec.whatwg.org/
+    file: infra-spec-whatwg-org.html
+    vars:
+      snapshot: c67ae1fb1d161b23d0f8c9bf9917ea1993f7b19a
+      fetched: "2026-10-10"
+
+# Der links-Eintrag der Seite liefert auch ihre Adresse: relative Links und
+# Bilder (/images/...) werden dagegen aufgeloest, {{ url }} ist diese Adresse.
+# 'snapshot' ist der Commit, den die gespeicherte Seite zeigt ("Snapshot as of
+# this commit" im Seitenkopf), 'fetched' der Tag, an dem sie geladen wurde.
+# Beide traegt tools/fetch_specs.py beim Laden der Seiten nach.
+
+# YAML-Kopf jeder Markdown-Datei. Platzhalter: title, url, file, date
+# (Tag der Wandlung), retrieved (Aenderungsdatum der HTML-Datei), vars.
+# Fuer den Abruftag steht hier 'fetched' aus vars: das Aenderungsdatum der
+# HTML-Datei wandert beim Kopieren mit.
+frontmatter:
+  title: "{{ title }}"
+  source: "{{ url }}"
+  snapshot: "{{ url }}commit-snapshots/{{ snapshot }}/"
+  retrieved: "{{ fetched }}"
+  converted: "{{ date }}"
+  author: WHATWG
+  license: CC BY 4.0
+  tags: [spec, whatwg]
+
+# Hinweis hinter dem Seitentitel. CC BY 4.0 verlangt Quelle, Urheber, Lizenz
+# und die Angabe, dass geaendert wurde.
+banner:
+  callout: info
+  title: Unofficial copy
+  position: after-title
+  text: |
+    This page is an unofficial, non-normative copy of the [{{ title }}]({{ url }}), based on the [snapshot of commit {{ snapshot[:7] }}]({{ url }}commit-snapshots/{{ snapshot }}/), retrieved on {{ fetched }}. It is not reviewed or endorsed by the WHATWG; for the authoritative text see the original.
+
+    Copyright © WHATWG (Apple, Google, Mozilla, Microsoft). Licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+    Changes: converted automatically from HTML to Markdown with mdVü on {{ date }}; the WHATWG logo and the MDN browser-support boxes were removed, notes, warnings and examples became callouts, relative links and image addresses were made absolute, and links between the HTML, DOM and Infra standards point to the local copies.

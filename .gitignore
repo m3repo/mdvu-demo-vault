@@ -1,0 +1,13 @@
+# Obsidian: Arbeitszustand, nicht Teil des Vaults
+.obsidian/workspace*.json
+.obsidian/cache
+.obsidian/plugins/
+.obsidian/themes/
+.trash/
+
+# Python
+__pycache__/
+
+# Grosse, erzeugte Lasttest-Dateien (kommen als Release-Asset, nicht ins Git).
+# Die drei WHATWG-Standards in Specs/ selbst sind versioniert (zusammen ca. 7 MB).
+Specs/*-50MB.md
